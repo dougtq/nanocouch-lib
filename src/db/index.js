@@ -2,7 +2,7 @@ import Nano from 'nano'
 import envs from '../config/env'
 
 export default class couchDB {
-  constructor (db) {
+  constructor () {
     this.conn = envs.vars.db_host
     this.db = envs.vars.db_name
   }
