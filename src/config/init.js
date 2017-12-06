@@ -6,7 +6,7 @@ const getModules = () =>
 
 const getRouters = modules =>
   modules.map(modulo =>
-    require(`./${modulo}/router.js`))
+    require(`./${modulo}/index.js`))
 
 const loaderRouters = (server, routers) =>
   routers.forEach(router =>
