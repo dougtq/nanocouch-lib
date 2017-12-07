@@ -1,4 +1,4 @@
-import nano from 'nano'
+// import nano from 'nano'
 import Db from '../db'
 // import envs from '../config/env'
 
@@ -26,20 +26,19 @@ class dbModel {
 
   update (obj, key, callback) {
     this.db.get(key, (err, existing) => {
-      if(!err) return err.message
+      if (!err) return err.message
       obj._rev = existing._rev
       return this.insert(obj, key)
     })
   }
 
-  delete (doc, id,) {
-    this.db.update(doc, id, function(err, res){
-      if(err) return err.message
+  delete (doc, id) {
+    this.db.update(doc, id, (err, res) => {
+      if (err) return err.message
 
       return true
-    });
+    })
   }
-
 }
 
 export default dbModel
