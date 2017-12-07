@@ -8,7 +8,7 @@ class dbModel {
     this.conn = this.db.connect()
   }
 
-  select (doc, view = 'by_type', query = { 'include_docs': true }) {
+  select (doc, view = 'by_type', query = { 'key': 'type', 'include_docs': true }) {
     this.db.view(doc, view, query, (err, body) => {
       if (err) return err.message
 
