@@ -1,5 +1,5 @@
+import nano from 'nano'
 import Db from '../db'
-// import nano from 'nano'
 // import envs from '../config/env'
 
 class dbModel {
@@ -8,21 +8,38 @@ class dbModel {
     this.conn = this.db.connect()
   }
 
-  insert () {
+  select (doc, view = 'by_type', query = { 'include_docs': true }) {
+    this.db.view(doc, view, query, (err, body) => {
+      if (err) return err.message
 
+      return body.rows
+    })
   }
 
-  update () {
+  insert (data, id) {
+    this.conn.insert(data, id, (err, body) => {
+      if (err) return err.message
 
+      return body
+    })
   }
 
-  delete () {
-
+  update (obj, key, callback) {
+    this.db.get(key, (err, existing) => {
+      if(!err) return err.message
+      obj._rev = existing._rev
+      return this.insert(obj, key)
+    })
   }
 
-  select () {
+  delete (doc, id,) {
+    this.db.update(doc, id, function(err, res){
+      if(err) return err.message
 
+      return true
+    });
   }
+
 }
 
 export default dbModel
